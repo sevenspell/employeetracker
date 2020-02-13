@@ -46,7 +46,10 @@ function retrieveEmployeeNames() {
 };
 
 function retrieveEmployeesFullData() {
-  var query = "SELECT * FROM employees";
+  var query = "SELECT first_name AS 'First Name', last_name AS 'Last Name', title AS 'Role', department_name AS 'Department', managers.first_name, managers.last_name FROM employees ";
+  query += "LEFT JOIN roles ON employees.role_id = roles.id ";
+  query += "LEFT JOIN departments ON roles.department_id = departments.id ";
+  query += "LEFT JOIN employees AS managers ON employees.manager_id = managers.id";
   connection.query(query, function (err, res) {
     if (err) throw err;
 
