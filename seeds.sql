@@ -1,50 +1,51 @@
 USE employees_db;
 
 INSERT INTO employees (first_name, last_name, role_id, manager_id)
-VALUES ("Rita", "Pang", 7, 4);
+VALUES ("Anthony", "Crusack", 1, 4);
 
 INSERT INTO employees (first_name, last_name, role_id, manager_id)
-VALUES ("David", "Ling", 4, 2);
+VALUES ("Lexie", "Grey", 2, 4);
 
 INSERT INTO employees (first_name, last_name, role_id, manager_id)
-VALUES ("Samantha", "Lang", 3, 1);
+VALUES ("Samantha", "Ling", 3, 4);
 
 INSERT INTO employees (first_name, last_name, role_id, manager_id)
-VALUES ("Niki", "Ping", 8, 5);
+VALUES ("Arizona", "Robbins", 3, 4);
 
 INSERT INTO employees (first_name, last_name, role_id, manager_id)
-VALUES ("Anthony", "Crusack", 1, 1);
+VALUES ("David", "Ling", 4, 5);
 
 INSERT INTO employees (first_name, last_name, role_id, manager_id)
-VALUES ("Mark", "Sloan", 10, 6);
+VALUES ("Alex", "Karev", 4, 5);
 
 INSERT INTO employees (first_name, last_name, role_id, manager_id)
-VALUES ("Derek", "Shepherd", 9, 5);
+VALUES ("Jackson", "Avery", 5, 5);
 
 INSERT INTO employees (first_name, last_name, role_id, manager_id)
-VALUES ("Cristina", "Yang", 8, 5);
+VALUES ("Miranda", "Bailey", 6, 8);
 
 INSERT INTO employees (first_name, last_name, role_id, manager_id)
-VALUES ("Lexie", "Grey", 2, 1);
+VALUES ("Rita", "Pang", 7, 9);
 
 INSERT INTO employees (first_name, last_name, role_id, manager_id)
-VALUES ("Arizona", "Robbins", 3, 1);
-
-
-
-
+VALUES ("April", "Kepner", 7, 9);
 
 INSERT INTO employees (first_name, last_name, role_id, manager_id)
-VALUES ("Alex", "Karev", 4, 2);
+VALUES ("Niki", "Ling", 8, 12);
 
 INSERT INTO employees (first_name, last_name, role_id, manager_id)
-VALUES ("Miranda", "Bailey", 6, 3);
+VALUES ("Cristina", "Yang", 8, 12);
 
 INSERT INTO employees (first_name, last_name, role_id, manager_id)
-VALUES ("Jackson", "Avery", 5, 2);
+VALUES ("Derek", "Shepherd", 9, 12);
 
 INSERT INTO employees (first_name, last_name, role_id, manager_id)
-VALUES ("April", "Kepner", 7, 4);
+VALUES ("Mark", "Sloan", 10, 14);
+
+
+
+
+
 
 
 

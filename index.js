@@ -13,16 +13,169 @@ var connection = mysql.createConnection({
 
   // Your password
   password: "seven11spell$",
-  database: "test_db"
+  database: "employees_db"
 });
 
 connection.connect(function (err) {
   if (err) throw err;
   console.log("connected as id " + connection.threadId);
-  // printText();
-
+  runSearch();
+  retrieveEmployeeNames();
+  retrieveEmployeesFullData();
+  retrieveRoles();
+  retrieveDepartments();
 });
 
+//create arrays
+
+const employeesByName = [];
+const employeesFull = [];
+const roles = [];
+const departments = [];
+
+//retrieve data and push data into the different arrays
+function retrieveEmployeeNames() {
+  var query = "SELECT first_name, last_name FROM employees";
+  connection.query(query, function (err, res) {
+    if (err) throw err;
+
+    for (var i = 0; i < res.length; i++) {
+      employeesByName.push(res[i].first_name + " " + res[i].last_name);
+    }
+  })
+};
+
+function retrieveEmployeesFullData() {
+  var query = "SELECT * FROM employees";
+  connection.query(query, function (err, res) {
+    if (err) throw err;
+
+    for (var i = 0; i < res.length; i++) {
+      employeesFull.push(res[i]);
+    }
+  })
+}
+
+function retrieveRoles() {
+  var query = "SELECT * FROM roles";
+  connection.query(query, function (err, res) {
+    if (err) throw err;
+
+    for (var i = 0; i < res.length; i++) {
+      roles.push(res[i]);
+    }
+  })
+}
+
+function retrieveDepartments() {
+  var query = "SELECT * FROM departments";
+  connection.query(query, function (err, res) {
+    if (err) throw err;
+
+    for (var i = 0; i < res.length; i++) {
+      departments.push(res[i]);
+    }
+  })
+}
+
+//create main function that runs the process
+function runSearch() {
+  inquirer.prompt(startQuestion)
+    .then(function (answer) {
+      switch (answer.startV) {
+
+        case "View All Employees":
+          viewAllEmployees();
+          break;
+
+        case "View All Employees By Department":
+
+          break;
+
+        case "View All Employees By Manager":
+
+          break;
+
+        case "Add Employee":
+          addEmployee();
+          break;
+
+        case "Remove Employee":
+
+          break;
+
+        case "Update Employee Role":
+
+          break;
+
+        case "Update Employee's Manager":
+
+          break;
+
+        case "View All Roles":
+          viewAllRoles();
+          break;
+
+        case "Add Role":
+
+          break;
+
+        case "Remove Role":
+
+          break;
+
+        case "View All Departments":
+          viewAllDepts();
+          break;
+
+        case "Add Department":
+
+          break;
+
+        case "Remove Department":
+
+          break;
+      }
+    })
+}
+
+//create sub functions to feed into the main function's switch/case
+function addEmployee() {
+  inquirer.prompt(addEmployeeQuestions)
+  .then(function(answer){
+    var query = "INSERT INTO employees SET ?"
+    connection.query(query, {
+      first_name: answer.addFirstV,
+      last_name: answer.addLastV,
+      role_id: answer.addRoleV,
+      manager_id: answer.addManagerV,
+    }, function (err){
+      if (err) throw err;
+      console.log("Employee added successfully.")
+      runSearch();
+    })
+
+  })
+}
+
+function viewAllEmployees() {
+  console.table(employeesFull);
+  runSearch();
+};
+
+function viewAllRoles() {
+  console.table(roles);
+  runSearch();
+};
+
+function viewAllDepts() {
+  console.table(departments);
+  runSearch();
+};
+
+
+
+// List of Inquirer Questions
 const startQuestion = [
   {
     type: "list",
@@ -38,7 +191,7 @@ const startQuestion = [
 //     type: "list",
 //     message: "Select department you want to view all employees by:",
 //     name: "viewbyDeptV",
-//     choices: generateChoicesFromDatabase(results),
+//     choices: []
 //   }
 // ]
 
@@ -48,7 +201,7 @@ const startQuestion = [
 //     type: "list",
 //     message: "Select manager you want to view all employees by:",
 //     name: "viewbyMgrV",
-//     choices: generateChoicesFromDatabase(results),
+//     choices: []
 //   }
 // ]
 
@@ -72,8 +225,8 @@ const addEmployeeQuestions = [
   {
     type: "list",
     message: "Select Employee's manager:",
-    name: "addRoleManagerV",
-    choices: generateChoicesFromDatabase(results),
+    name: "addManagerV",
+    choices: employeesByName,
   }
 ]
 
@@ -83,7 +236,7 @@ const addEmployeeQuestions = [
 //     type: "list",
 //     message: "Select employee you want to remove:",
 //     name: "removeEmployeeV",
-//     choices: generateChoicesFromDatabase(results),
+//     choices: []
 //   }
 // ]
 
@@ -92,13 +245,13 @@ const updateEmployeeRoleQuestions = [
     type: "list",
     message: "Select employee for which you want to update role:",
     name: "selectEmployeeRoleV",
-    choices: generateChoicesFromDatabase(results),
+    choices: []
   },
   {
     type: "list",
     message: "Select role to update:",
     name: "updateEmployeeRoleV",
-    choices: generateChoicesFromDatabase(results),
+    choices: []
   }
 ]
 
@@ -108,13 +261,13 @@ const updateEmployeeRoleQuestions = [
 //     type: "list",
 //     message: "Select employee for which you want to update manager:",
 //     name: "selectEmployeeMgrV",
-//     choices: generateChoicesFromDatabase(results),
+//     choices: []
 //   },
 //   {
 //     type: "list",
 //     message: "Select Employee's manager:",
 //     name: "updateEmployeeMgrV",
-//     choices: generateChoicesFromDatabase(results),
+//     choices: []
 //   }
 // ]
 
@@ -132,7 +285,7 @@ const addRoleQuestion = [
 //     type: "list",
 //     message: "Select role to remove:",
 //     name: "removeRoleV",
-//     choices: generateChoicesFromDatabase(results),
+//     choices: []
 //   }
 // ]
 
@@ -150,31 +303,10 @@ const addDeptQuestions = [
 //     type: "list",
 //     message: "Select department to remove:",
 //     name: "removeDeptV",
-//     choices: generateChoicesFromDatabase(results),
+//     choices: []
 //   }
 // ]
 
-function generateChoicesFromDatabase(results){
-  var choicesArray = [];
-
-  for (var i = 0; i < results.length; i++){
-    choicesArray.push(results[i].item)
-  }
-  return choicesArray;
-};
-
-
-function viewAllEmployees(){
-
-};
-
-function viewAllRoles(){
-
-};
-
-function viewAllDepts(){
-
-};
 
 
 
@@ -186,19 +318,3 @@ function viewAllDepts(){
 
 
 
-
-
-
-
-
-
-// function printText() {
-
-//   connection.query("SELECT * FROM testTable", function (err, res) {
-//     if (err) throw err;
-//     for (var i = 0; i < res.length; i++) {
-//       console.log(res[i].id + " | " + res[i].text);
-//     }
-//     console.log("-----------------------------------");
-//   });
-// }
