@@ -68,7 +68,8 @@ function retrieveManagerList() {
   query += "FROM employees AS staff ";
   query += "LEFT JOIN roles ON staff.role_id = roles.id ";
   query += "LEFT JOIN departments ON roles.department_id = departments.id ";
-  query += "LEFT JOIN employees AS managers ON staff.manager_id = managers.id";
+  query += "LEFT JOIN employees AS managers ON staff.manager_id = managers.id ";
+  query += "GROUP BY id"
   connection.query(query, function (err, res) {
     if (err) throw err;
 
