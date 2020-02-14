@@ -2,6 +2,7 @@ var mysql = require("mysql");
 var inquirer = require("inquirer");
 var consoleTable = require("console.table");
 
+//create login connectivity to mysql
 var connection = mysql.createConnection({
   host: "localhost",
 
@@ -16,6 +17,7 @@ var connection = mysql.createConnection({
   database: "employees_db"
 });
 
+//create initial function that runs on connection to kickstart process and log required data into arrays
 connection.connect(function (err) {
   if (err) throw err;
   console.log("connected as id " + connection.threadId);
@@ -98,8 +100,6 @@ function retrieveDepartments() {
     }
   })
 }
-
-
 
 //create main function that runs the process
 function runSearch() {
@@ -347,7 +347,7 @@ function removeDept() {
     })
 }
 
-// List of Inquirer Questions
+// Create list of Inquirer Questions
 const startQuestion = [
   {
     type: "list",
