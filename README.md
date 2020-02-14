@@ -12,7 +12,7 @@ This is performed by designing questions using the NPM Inquirer package, then re
 
 ## Usage 
 
-1. Open the Gitbash terminal and type 'node index.js' and press 'enter'.
+1. Open the Gitbash terminal and type 'node app.js' and press 'enter'.
 https://github.com/sevenspell/week12-assignment/blob/master/assets/Screenshot1.png
 2. Select one of the choices offered. (In this screenshot example, 'View All Employees' was chosen.)
 https://github.com/sevenspell/week12-assignment/blob/master/assets/Screenshot2.png
