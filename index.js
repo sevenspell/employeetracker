@@ -225,9 +225,13 @@ function addEmployee() {
         last_name: answer.addLastV,
         role_id: answer.addRoleV,
         manager_id: answer.addManagerV,
-      }, function (err) {
+      }, function (err, res) {
         if (err) throw err;
-        console.log("Employee added successfully.")
+        console.log(res.affectedRows + " employee added successfully.")
+        employeesFullList.length = 0;
+        employeesByName.length = 0;
+        retrieveEmployeesFullData();
+        retrieveEmployeesByName();
         runSearch();
       })
     })
@@ -239,9 +243,13 @@ function removeEmployee() {
     .then(function (answer) {
       var query = "DELETE FROM employees WHERE id = ?"
       connection.query(query, [answer.removeEmployeeV],
-        function (err) {
+        function (err, res) {
           if (err) throw err;
-          console.log("Employee deleted successfully.")
+          console.log(res.affectedRows + " employee deleted successfully.")
+          employeesFullList.length = 0;
+          employeesByName.length = 0;
+          retrieveEmployeesFullData();
+          retrieveEmployeesByName();
           runSearch();
         })
     })
@@ -253,9 +261,11 @@ function updateEmployeeRoles() {
     .then(function (answer) {
       var query = "UPDATE employees SET role_id = ? WHERE id = ?"
       connection.query(query, [answer.updateEmployeeRoleV, answer.selectEmployeeRoleV],
-        function (err) {
+        function (err, res) {
           if (err) throw err;
-          console.log("Role updated successfully.")
+          console.log(res.affectedRows + " employee's role updated successfully.")
+          employeesFullList.length = 0;
+          retrieveEmployeesFullData();
           runSearch();
         })
     })
@@ -267,9 +277,11 @@ function updateEmployeeManager() {
     .then(function (answer) {
       var query = "UPDATE employees SET manager_id = ? WHERE id = ?"
       connection.query(query, [answer.updateEmployeeMgrV, answer.selectEmployeeMgrV],
-        function (err) {
+        function (err, res) {
           if (err) throw err;
-          console.log("Employee's manager updated successfully.")
+          console.log(res.affectedRows + " employee's manager updated successfully.")
+          employeesFullList.length = 0;
+          retrieveEmployeesFullData();
           runSearch();
         })
     })
@@ -290,9 +302,11 @@ function addRole() {
         title: answer.addRoleV,
         salary: answer.addRoleSalaryV,
         department_id: answer.addRoleDeptV,
-      }, function (err) {
+      }, function (err, res) {
         if (err) throw err;
-        console.log("Role added successfully.")
+        console.log(res.affectedRows + " role added successfully.")
+        rolesList.length = 0;
+        retrieveRoles();
         runSearch();
       })
     })
@@ -304,9 +318,11 @@ function removeRole() {
     .then(function (answer) {
       var query = "DELETE FROM roles WHERE id = ?"
       connection.query(query, [answer.removeRoleV],
-        function (err) {
+        function (err, res) {
           if (err) throw err;
-          console.log("Role deleted successfully.")
+          console.log(res.affectedRows + " role deleted successfully.")
+          rolesList.length = 0;
+          retrieveRoles();
           runSearch();
         })
     })
@@ -325,9 +341,11 @@ function addDept() {
       var query = "INSERT INTO departments SET ?"
       connection.query(query, {
         department_name: answer.addDeptV,
-      }, function (err) {
+      }, function (err, res) {
         if (err) throw err;
-        console.log("Department added successfully.")
+        console.log(res.affectedRows + " department added successfully.")
+        departmentsList.length = 0;
+        retrieveDepartments(); 
         runSearch();
       })
     })
@@ -339,9 +357,11 @@ function removeDept() {
     .then(function (answer) {
       var query = "DELETE FROM departments WHERE id = ?"
       connection.query(query, [answer.removeDeptV],
-        function (err) {
+        function (err, res) {
           if (err) throw err;
-          console.log("Department deleted successfully.")
+          console.log(res.affectedRows + " department deleted successfully.")
+          departmentsList.length = 0;
+          retrieveDepartments(); 
           runSearch();
         })
     })
