@@ -64,7 +64,6 @@ function retrieveEmployeesByName() {
 }
 
 function retrieveManagerList() {
-  // var query = "SELECT DISTINCT managers.id, CONCAT(managers.first_name, ' ', managers.last_name) AS 'manager', department_name "
   var query = "SELECT DISTINCT managers.id, managers.first_name, managers.last_name, department_name "
   query += "FROM employees AS staff ";
   query += "LEFT JOIN roles ON staff.role_id = roles.id ";
@@ -208,11 +207,7 @@ function viewAllEmployeesByMgr() {
         console.table(res);
         runSearch();
       })
-
-
     })
-
-
 }
 
 //WORKS!!
