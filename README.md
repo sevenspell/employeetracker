@@ -1,6 +1,6 @@
 # week12-assignment - Employee Tracker
 
-+ Github Repo link: https://github.com/sevenspell/week12-assignment
++ Github Repo link: https://github.com/sevenspell/employeetracker
 
 
 ## Description 
